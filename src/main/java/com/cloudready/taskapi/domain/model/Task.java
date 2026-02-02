@@ -28,12 +28,12 @@ public class Task {
         this.updatedAt = Objects.requireNonNull(updatedAt);
     }
 
-    public Task create(TaskId id, TaskTitle title, String desc, String taskDesc,TaskDueDate dueDate, Instant now) {
+    public static Task create(TaskId id, TaskTitle title, String desc,TaskDueDate dueDate, Instant now) {
         Objects.requireNonNull(now, "now must not be null");
         return new Task(id,title,desc,dueDate,TaskStatus.TODO,now,now);
     }
 
-    public void rescheduleTask(TaskDueDate dueDate, Instant now){
+    public  void rescheduleTask(TaskDueDate dueDate, Instant now){
         Objects.requireNonNull(now,"now must be not null");
         this.dueDate = Objects.requireNonNull(dueDate, "newDueDate must not be null");
         touch(now);
@@ -64,5 +64,41 @@ public class Task {
             throw new PolicyException("updatedAt must not be before createdAt");
         }
         this.updatedAt = now;
+    }
+
+    public TaskId getId() {
+        return id;
+    }
+
+    public TaskTitle getTitle() {
+        return title;
+    }
+
+    public String getTaskDesc() {
+        return taskDesc;
+    }
+
+    public TaskDueDate getDueDate() {
+        return dueDate;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
+    public void setTaskDesc(String taskDesc) {
+        this.taskDesc = taskDesc;
     }
 }
