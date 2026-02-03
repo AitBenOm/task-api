@@ -1,4 +1,4 @@
-package com.cloudready.taskapi.bootstrap;
+package com.cloudready.taskapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

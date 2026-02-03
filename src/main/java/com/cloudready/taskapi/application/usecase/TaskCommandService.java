@@ -11,10 +11,9 @@ import com.cloudready.taskapi.domain.port.out.TaskRepositoryPort;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
-public final class TaskCommandService implements CreateTaskUSeCase,
+public final class TaskCommandService implements CreateTaskUseCase,
         UpdateTaskDetailUseCase,
         RescheduleTaskUseCase,
         ChangeStatusUseCase,
@@ -71,7 +70,7 @@ public final class TaskCommandService implements CreateTaskUSeCase,
 
 
     @Override
-    public TaskResult Reschedule(RescheduleTaskCommand command) {
+    public TaskResult reschedule(RescheduleTaskCommand command) {
         Objects.requireNonNull(command, "RescheduleTaskCommand must not be null");
 
         Task task = taskRepositoryPort.findById(parseTaskId(command.taskId())).orElseThrow(() -> new IllegalStateException("Task not found: " + command.taskId()));

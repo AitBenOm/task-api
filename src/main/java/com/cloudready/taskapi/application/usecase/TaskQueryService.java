@@ -16,6 +16,10 @@ public class TaskQueryService implements GetTaskUseCase, ListTaskUseCase {
 
     private TaskRepositoryPort taskRepositoryPort;
 
+    public TaskQueryService(TaskRepositoryPort taskRepositoryPort) {
+        this.taskRepositoryPort = taskRepositoryPort;
+    }
+
     @Override
     public TaskResult getTask(GetTaskQuery query) {
         Task task = taskRepositoryPort.findById(parseTaskId(query.taskId())).orElseThrow(() -> new IllegalArgumentException("Task not found: " + query.taskId()));
