@@ -1,65 +1,60 @@
 package com.cloudready.taskapi.adapters.outbound.persistence;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.UUID;
 
-@Table(name = "task")
 @Entity
+@Table(name = "task")
 public class TaskEntity {
+
     @Id
+    @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
-    @Column(name = "title")
 
+    @Column(name = "title", nullable = false, length = 120)
     private String title;
-    @Column(name = "desc")
 
-    private String desc;
-    @Column(name = "dueDate")
+    @Column(name = "description", length = 2000)
+    private String description;
 
-    private Instant dueDate;
-    @Column(name = "status")
-
+    @Column(name = "status", nullable = false, length = 30)
     private String status;
 
-    @Column(name = "created_by")
+    @Column(name = "due_date")
+    private Instant dueDate;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    @Column(name = "assigned_to")
+    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
-    public void setId(UUID id) {
+    // ---- JPA ONLY ----
+    protected TaskEntity() {
+        // Required by JPA
+    }
+
+    // ---- Constructor used by mapper ----
+    public TaskEntity(UUID id,
+                      String title,
+                      String description,
+                      String status,
+                      Instant dueDate,
+                      Instant createdAt,
+                      Instant updatedAt) {
+
         this.id = id;
-    }
-
-    public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public void setDueDate(Instant dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public void setStatus(String status) {
+        this.description = description;
         this.status = status;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
+        this.dueDate = dueDate;
         this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
 
+    // ---- Getters only (no business logic here) ----
     public UUID getId() {
         return id;
     }
@@ -68,16 +63,16 @@ public class TaskEntity {
         return title;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public Instant getDueDate() {
-        return dueDate;
+    public String getDescription() {
+        return description;
     }
 
     public String getStatus() {
         return status;
+    }
+
+    public Instant getDueDate() {
+        return dueDate;
     }
 
     public Instant getCreatedAt() {
@@ -86,5 +81,34 @@ public class TaskEntity {
 
     public Instant getUpdatedAt() {
         return updatedAt;
+    }
+
+    // ---- Minimal setters for JPA updates ----
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDueDate(Instant dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 }

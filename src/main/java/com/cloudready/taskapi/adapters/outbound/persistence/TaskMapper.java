@@ -12,7 +12,7 @@ public class TaskMapper {
         TaskEntity entity = new TaskEntity();
         entity.setCreatedAt(task.getCreatedAt());
         entity.setTitle(task.getTitle().value());
-        entity.setDesc(task.getTaskDesc());
+        entity.setDescription(task.getTaskDesc());
         entity.setDueDate(task.getDueDate().value().get());
         entity.setUpdatedAt(task.getUpdatedAt());
         entity.setStatus(task.getStatus().name());
@@ -28,7 +28,7 @@ public class TaskMapper {
         Task businessTask = new Task(
                 id,
                 title,
-                taskEntity.getDesc(),
+                taskEntity.getDescription(),
                 possibleDueDate,
                 status,
                 taskEntity.getCreatedAt(),
